@@ -98,7 +98,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       return (
                         <li
                           key={i}
-                          className="flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700"
+                          className="flex w-full flex-col border-b border-border"
                         >
                           <div className="relative flex w-full flex-row justify-between px-1 py-4">
                             <div className="absolute z-40 -mt-2 ml-[55px]">
@@ -109,7 +109,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                               onClick={closeCart}
                               className="z-30 flex flex-row space-x-4"
                             >
-                              <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
+                              <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded-md border border-border bg-background">
                                 <Image
                                   className="h-full w-full object-cover"
                                   width={64}
@@ -127,19 +127,19 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                   {item.merchandise.product.title}
                                 </span>
                                 {item.merchandise.title !== DEFAULT_OPTION ? (
-                                  <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                                  <p className="text-sm text-foreground">
                                     {item.merchandise.title}
                                   </p>
                                 ) : null}
                               </div>
                             </Link>
-                            <div className="flex h-16 flex-col justify-between">
+                            <div className="flex h-16 flex-col justify-between gap-2 items-center">
                               <Price
                                 className="flex justify-end space-y-2 text-right text-sm"
                                 amount={item.cost.totalAmount.amount}
                                 currencyCode={item.cost.totalAmount.currencyCode}
                               />
-                              <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
+                              <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-border">
                                 <EditItemQuantityButton item={item} type="minus" />
                                 <p className="w-6 text-center">
                                   <span className="w-full text-sm">{item.quantity}</span>
@@ -152,34 +152,34 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       );
                     })}
                   </ul>
-                  <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">
+                  <div className="py-4 text-sm text-foreground">
+                    <div className="mb-3 flex items-center justify-between border-b border-border pb-1">
                       <p>Taxes</p>
                       <Price
-                        className="text-right text-base text-black dark:text-white"
+                        className="text-right text-base text-foreground"
                         amount={cart.cost.totalTaxAmount.amount}
                         currencyCode={cart.cost.totalTaxAmount.currencyCode}
                       />
                     </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
+                    <div className="mb-3 flex items-center justify-between border-b border-border pb-1 pt-1">
                       <p>Shipping</p>
                       <p className="text-right">Calculated at checkout</p>
                     </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
+                    <div className="mb-3 flex items-center justify-between border-b border-border pb-1 pt-1">
                       <p>Total</p>
                       <Price
-                        className="text-right text-base text-black dark:text-white"
+                        className="text-right text-base text-foreground"
                         amount={cart.cost.totalAmount.amount}
                         currencyCode={cart.cost.totalAmount.currencyCode}
                       />
                     </div>
                   </div>
-                  <a
+                  <Link
                     href={cart.checkoutUrl}
-                    className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
+                    className="block w-full rounded-full bg-foreground dark:bg-background p-3 text-center text-sm font-medium text-background dark:text-foreground opacity-90 hover:opacity-100"
                   >
                     Proceed to Checkout
-                  </a>
+                  </Link>
                 </div>
               )}
             </Dialog.Panel>

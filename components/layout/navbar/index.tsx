@@ -1,3 +1,4 @@
+import { ModeToggle } from 'app/components/ui/mode-toggle';
 import Cart from 'components/cart';
 import OpenCart from 'components/cart/open-cart';
 import LogoSquare from 'components/logo-square';
@@ -31,7 +32,7 @@ export default async function Navbar() {
                 <li key={item.title}>
                   <Link
                     href={item.path}
-                    className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
+                    className="text-foreground dark:text-background hover:text-accent-foreground dark:hover:text-accent underline-offset-4 "
                   >
                     {item.title}
                   </Link>
@@ -43,7 +44,8 @@ export default async function Navbar() {
         <div className="hidden justify-center md:flex md:w-1/3">
           <Search />
         </div>
-        <div className="flex justify-end md:w-1/3">
+        <div className="flex justify-end md:w-1/3 gap-4 items-center">
+          <ModeToggle />
           <Suspense fallback={<OpenCart />}>
             <Cart />
           </Suspense>

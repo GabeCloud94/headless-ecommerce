@@ -1,5 +1,6 @@
 import { Carousel } from 'components/carousel';
 import { ThreeItemGrid } from 'components/grid/three-items';
+import { HeroSlider } from 'components/hero-slider';
 import Footer from 'components/layout/footer';
 import { Suspense } from 'react';
 
@@ -15,7 +16,13 @@ export const metadata = {
 export default async function HomePage() {
   return (
     <>
-      <ThreeItemGrid />
+      <h1 className="text-center text-5xl my-6">
+        GC Snowboards
+      </h1>
+      <HeroSlider />
+      <Suspense>
+        <ThreeItemGrid />
+      </Suspense>
       <Suspense>
         <Carousel />
         <Suspense>
