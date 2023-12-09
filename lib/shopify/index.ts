@@ -342,17 +342,28 @@ export async function getMenu(handle: string): Promise<Menu[]> {
     query: getMenuQuery,
     tags: [TAGS.collections],
     variables: {
-      handle
-    }
+      handle,
+    },
   });
 
-  return (
-    res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
-      title: item.title,
-      path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
-    })) || []
-  );
+  const mapMenuItems = (items: any[]): Menu[] => {
+    return items.map((item: { title: string; url: string; items?: any[] }) => {
+      const menu: Menu = {
+        title: item.title,
+        path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', ''),
+      };
+
+      if (item.items && Array.isArray(item.items) && item.items.length > 0) {
+        menu.items = mapMenuItems(item.items);
+      }
+
+      return menu;
+    });
+  };
+
+  return res.body?.data?.menu?.items ? mapMenuItems(res.body.data.menu.items) : [];
 }
+
 
 export async function getPage(handle: string): Promise<Page> {
   const res = await shopifyFetch<ShopifyPageOperation>({

@@ -39,11 +39,17 @@ export type Image = {
   width: number;
   height: number;
 };
+export type MenuItem = {
+  title: string;
+  path: string;
+};
 
 export type Menu = {
   title: string;
   path: string;
+  items?: MenuItem[];
 };
+
 
 export type Money = {
   amount: string;

@@ -35,7 +35,7 @@ export const metadata = {
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={GeistSans.variable}>
-      <body className="bg-background text-foreground selection:accent-foreground">
+      <body className="bg-background text-foreground selection:accent-foreground antialiased">
             <ThemeProvider
             attribute="class"
             defaultTheme="system"
