@@ -11,13 +11,16 @@ import { GridTileImage } from "./grid/tile";
 
 export function SlickSlider({homepageItems}: {homepageItems: Product[]}) {
   var settings = {
-    dots: false,
+    dots: true,
+    arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000
+    autoplaySpeed: 5000,
+    accessibility: true
+    
   };
 
   return (
