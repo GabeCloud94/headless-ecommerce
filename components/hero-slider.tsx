@@ -7,7 +7,7 @@ import { SlickSlider } from './slick-slider';
 export async function HeroSlider() {
 
   const homepageItems: Product[] = await getCollectionProducts({
-    collection: 'hidden-homepage-slider'
+    collection: 'new-arrivals'
   });
 
   if (!homepageItems?.length) return null;

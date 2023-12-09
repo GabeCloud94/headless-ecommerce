@@ -17,7 +17,7 @@ export default async function HomePage() {
   return (
     <>
       <h1 className="text-center text-5xl my-6">
-        GC Snowboards
+        GC Next Test
       </h1>
       <HeroSlider />
       <Suspense>
