@@ -20,7 +20,7 @@ export default async function Blog() {
   return (
     <div className='flex justify-center flex-col xl:max-w-7xl xl:items-start items-center mx-auto px-4 mb-6'>
       <h1 className="mb-8 text-5xl font-bold">{blog.title}</h1>
-      {blog.articles.edges.map(({ node: article }) => (
+      {blog.articles.edges.reverse().map(({ node: article }) => (
         <div key={article.id} className="border p-4 mb-8 w-full flex gap-2 items-center rounded-lg bg-secondary">
           <div className='flex flex-col w-1/4 text-center justify-center'>
             <h2 className="text-3xl font-bold mb-2">{article.title}</h2>
