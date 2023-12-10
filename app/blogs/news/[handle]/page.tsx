@@ -20,8 +20,8 @@ export async function generateMetadata({
   if (!article) return notFound();
 
   return {
-    title: article.seo?.title || article.title,
-    description: article.seo?.description || article.excerpt,
+    title: article.seo.title || article.title,
+    description: article.seo.description || article.excerpt,
     openGraph: {
       publishedTime: article.publishedAt,
       type: 'article'
