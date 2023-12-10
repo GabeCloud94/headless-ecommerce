@@ -14,13 +14,6 @@ export const blogFragment = /* GraphQL */ `
         }
       }
     }
-    seo {
-      title
-      description
-    }
-    articleByHandle(handle: $handle) {
-      ...article
-    }
   }
   ${articleFragment}
 `;

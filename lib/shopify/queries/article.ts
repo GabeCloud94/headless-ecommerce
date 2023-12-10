@@ -9,6 +9,7 @@ export const articleFragment = /* GraphQL */ `
       altText
     }
     content
+    contentHtml
     excerpt
     seo {
       title

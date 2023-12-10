@@ -1,11 +1,10 @@
-import Prose from 'components/prose';
 import { getBlog } from 'lib/shopify';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 export const runtime = 'edge';
-export const revalidate = 120; // 12 hours in seconds
+export const revalidate = 43200; // 12 hours in seconds
 
 export async function generateMetadata({
   params
@@ -45,18 +44,16 @@ export default async function Article({
 
   return (
     <div className='flex justify-center flex-col xl:max-w-7xl items-center mx-auto px-4 my-6'>
-      <h1 className="mb-2 text-5xl font-bold">{article.title}</h1>
+      <h1 className="mb-2 text-5xl font-bold text-center">{article.title}</h1>
         {`This article was published on ${new Intl.DateTimeFormat(undefined, {
           year: 'numeric',
           month: 'long',
           day: 'numeric'
         }).format(new Date(article.publishedAt))}.`}
         {article.image && (
-              <Image width={600} height={600} loading='eager' src={article.image.url} alt={article.title} className="mt-4" />
+              <Image width={600} height={600} priority src={article.image.url} alt={article.title} className="mt-4" />
             )}
-      <Prose className="my-8" html={article.content as string} />
-      <p className="text-sm italic">
-      </p>
+      <div dangerouslySetInnerHTML={{ __html: article.contentHtml }} />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 // blog.tsx
 import { Button } from 'app/components/ui/button';
 import { getBlog } from 'lib/shopify';
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -9,25 +8,13 @@ import { notFound } from 'next/navigation';
 
 export const runtime = 'edge';
 
-export const revalidate = 120; // 12 hours in seconds
+export const revalidate = 43200; // 12 hours in seconds
 
-export async function generateMetadata(): Promise<Metadata> {
-  const blog = await getBlog('News'); // Fetch the 'News' blog statically
 
-  if (!blog) return notFound();
-
-  return {
-    title: blog.seo?.title || blog.title,
-    description: blog.seo?.description || `Latest articles from the ${blog.title} blog.`,
-    openGraph: {
-      type: 'website'
-    }
-  };
-}
 
 export default async function Blog() {
   const blog = await getBlog('news');
-
+  console.log(blog)
   if (!blog) return notFound();
 
   return (
@@ -45,7 +32,7 @@ export default async function Blog() {
               }).format(new Date(article.publishedAt))}.`}
             </p>
             {article.image && (
-              <Image width={350} height={350} loading='eager' src={article.image.url} alt={article.title} className="mb-2" />
+              <Image width={350} height={350} src={article.image.url} alt={article.title} className="mb-2" />
             )}
           </div>
           <p className=' truncate max-w-md mx-auto text-center w-1/2'>{article.content}</p>

@@ -75,6 +75,7 @@ export type Article = {
     altText: string;
   };
   content: string;
+  contentHtml: string;
   excerpt: string;
   seo: SEO;
   publishedAt: string;
@@ -90,8 +91,7 @@ export type Blog = {
       node: Article;
     }[];
   };
-  seo: SEO;
-  articleByHandle: Article; 
+
 };
 
 export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
