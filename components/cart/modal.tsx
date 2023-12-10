@@ -122,7 +122,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                 />
                               </div>
 
-                              <div className="flex flex-1 flex-col text-base">
+                              <div className="flex flex-1 flex-col text-sm">
                                 <span className="leading-tight">
                                   {item.merchandise.product.title}
                                 </span>
