@@ -1,16 +1,22 @@
 import Prose from 'components/prose';
-import { getArticle } from 'lib/shopify';
+import { getBlog } from 'lib/shopify';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
-
 export const runtime = 'edge';
-
 export const revalidate = 43200; // 12 hours in seconds
 
-export async function GenerateMetadata(): Promise<Metadata> {
+export async function GenerateMetadata({
+  params
+}: {
+  params: { handle: string };
+}): Promise<Metadata> {
+  const blog = await getBlog('News');
 
-  const article = await getArticle(id);
+  if (!blog) return notFound();
+
+  const article = blog.articles.edges.find(({ node }) => node.handle === params.handle)?.node;
 
   if (!article) return notFound();
 
@@ -24,21 +30,34 @@ export async function GenerateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Article() {
-  const article = await getArticle(id);
+export default async function Article({
+  params
+}: {
+  params: { handle: string };
+}) {
+  const blog = await getBlog('News');
+
+  if (!blog) return notFound();
+
+  const article = blog.articles.edges.find(({ node }) => node.handle === params.handle)?.node;
+
   if (!article) return notFound();
 
   return (
-    <>
-      <h1 className="mb-8 text-5xl font-bold">{article.title}</h1>
-      <Prose className="mb-8" html={article.content as string} />
-      <p className="text-sm italic">
+    <div className='flex justify-center flex-col xl:max-w-7xl items-center mx-auto px-4 my-6'>
+      <h1 className="mb-2 text-5xl font-bold">{article.title}</h1>
         {`This article was published on ${new Intl.DateTimeFormat(undefined, {
           year: 'numeric',
           month: 'long',
           day: 'numeric'
         }).format(new Date(article.publishedAt))}.`}
+        {article.image && (
+              <Image width={600} height={600} loading='eager' src={article.image.url} alt={article.title} className="mt-4" />
+            )}
+      <Prose className="my-8" html={article.content as string} />
+      <p className="text-sm italic">
       </p>
-    </>
+    </div>
   );
 }
+

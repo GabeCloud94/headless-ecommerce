@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: blog.seo?.title || blog.title,
     description: blog.seo?.description || `Latest articles from the ${blog.title} blog.`,
     openGraph: {
-      type: 'article'
+      type: 'website'
     }
   };
 }
@@ -51,7 +51,7 @@ export default async function Blog() {
           <p className=' truncate max-w-md mx-auto text-center w-1/2'>{article.content}</p>
           <div className='w-1/4 flex justify-center'>
             <Button className='text-lg' variant="default" asChild>
-              <Link  href={`news/${article.handle}`}>View Blog</Link>
+              <Link  href={`/blogs/news/${article.handle}`}>View Blog</Link>
             </Button>
           </div>
 

@@ -1,8 +1,6 @@
 // blog.ts
 
-
 import { articleFragment } from "./article";
-
 
 export const blogFragment = /* GraphQL */ `
   fragment blog on Blog {
@@ -20,9 +18,11 @@ export const blogFragment = /* GraphQL */ `
       title
       description
     }
+    articleByHandle(handle: $handle) {
+      ...article
+    }
   }
   ${articleFragment}
-
 `;
 
 export const getBlogQuery = /* GraphQL */ `

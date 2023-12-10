@@ -10,7 +10,7 @@ import {
   editCartItemsMutation,
   removeFromCartMutation
 } from './mutations/cart';
-import { getArticleQuery, getArticlesQuery } from './queries/article';
+// import { getArticleQuery } from './queries/article';
 import { getBlogQuery } from './queries/blog';
 import { getCartQuery } from './queries/cart';
 import {
@@ -26,7 +26,6 @@ import {
   getProductsQuery
 } from './queries/product';
 import {
-  Article,
   Blog,
   Cart,
   Collection,
@@ -36,8 +35,7 @@ import {
   Page,
   Product,
   ShopifyAddToCartOperation,
-  ShopifyArticleOperation,
-  ShopifyArticlesOperation,
+
   ShopifyBlogOperation,
   ShopifyCart,
   ShopifyCartOperation,
@@ -397,22 +395,16 @@ export async function getBlog(handle: string): Promise<Blog> {
 
   return res.body.data.blogByHandle;
 }
-export async function getArticle(id: string): Promise<Article> {
-  const res = await shopifyFetch<ShopifyArticleOperation>({
-    query: getArticleQuery,
-    variables: { id }
-  });
+// export async function getArticle(articleId: string): Promise<Article> {
+//   const res = await shopifyFetch<ShopifyArticleOperation>({
+//     query: getArticleQuery,
+//     variables: { articleId }
+//   });
 
-  return res.body.data.article;
-}
+//   return res.body.data.article; // Check if "article" field is present in the response
+// }
 
-export async function getArticles(): Promise<Article[]> {
-  const res = await shopifyFetch<ShopifyArticlesOperation>({
-    query: getArticlesQuery
-  });
 
-  return res.body.data.articles.edges.map((edge) => edge.node);
-}
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
   const res = await shopifyFetch<ShopifyProductOperation>({

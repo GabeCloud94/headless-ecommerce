@@ -91,6 +91,7 @@ export type Blog = {
     }[];
   };
   seo: SEO;
+  articleByHandle: Article; 
 };
 
 export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
@@ -278,20 +279,16 @@ export type ShopifyBlogOperation = {
   };
 };
 
-export type ShopifyArticleOperation = {
-  data: {
-    article: Article;
-  };
-  variables: {
-    id: string;
-  };
-};
+// export type ShopifyArticleOperation = {
+//   data: {
+//     article: Article;
+//   };
+//   variables: {
+//     articleId: string;
+//   };
+// };
 
-export type ShopifyArticlesOperation = {
-  data: {
-    articles: Connection<Article>;
-  };
-};
+
 
 export type ShopifyProductOperation = {
   data: { product: ShopifyProduct };
