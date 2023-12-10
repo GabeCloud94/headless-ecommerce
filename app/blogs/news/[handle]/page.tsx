@@ -8,7 +8,7 @@ export const runtime = 'edge';
 
 export const revalidate = 43200; // 12 hours in seconds
 
-export async function GenerateMetadata({ params: { id } }: { params: { id: string } }): Promise<Metadata> {
+export async function GenerateMetadata(): Promise<Metadata> {
 
   const article = await getArticle(id);
 
@@ -24,7 +24,7 @@ export async function GenerateMetadata({ params: { id } }: { params: { id: strin
   };
 }
 
-export default async function Article({ params: { id } }: { params: { id: string } }) {
+export default async function Article() {
   const article = await getArticle(id);
   if (!article) return notFound();
 
