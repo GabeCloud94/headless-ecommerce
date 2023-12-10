@@ -6,9 +6,12 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from 'app/components/ui/accordion';
 import { Menu, MenuItem } from 'lib/shopify/types';
+import { ChevronRight } from 'lucide-react';
 import Search from './search';
 
+ 
 export default function MobileMenu({ menu }: { menu: Menu[] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -78,21 +81,28 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                   <ul className="flex w-full flex-col">
                     {menu.map((item: Menu) => (
                       <li
-                      className="py-2 text-xl"
+                      className="py-2 text-xl border-b"
                       key={item.title}
                       >
                       {item.items ? (
                         <>
-                         {item.title}
-                         <ul className='pl-8 text-foreground list-disc'>
+                         <Accordion type="single" collapsible>
+                          <AccordionItem value="item-1">
+                          <AccordionTrigger>{item.title}</AccordionTrigger>
+                          <AccordionContent>
+                            <ul className='ml-4'>
                          {item.items.map((childItem: MenuItem) => (
-                          <li key={childItem.title}>
-                            <Link className='text-foreground hover:text-muted transition-all duration-300' href={childItem.path} onClick={closeMobileMenu}>
+                          <li className='pt-4 flex flex-row items-center gap-2' key={childItem.title}>
+                            <ChevronRight className='text-muted-foreground w-4 h-4' />
+                            <Link className='text-foreground text-base hover:text-muted transition-all duration-300' href={childItem.path} onClick={closeMobileMenu}>
                               {childItem.title}
                             </Link>
                           </li>
                          ))}
                          </ul>
+                         </AccordionContent>
+                         </AccordionItem>
+                         </Accordion>
                         </>
                         ) : (                          
                         <Link className='text-foreground hover:text-muted transition-all duration-300' href={item.path} onClick={closeMobileMenu}>
