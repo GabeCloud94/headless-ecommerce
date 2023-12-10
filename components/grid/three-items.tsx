@@ -1,3 +1,4 @@
+import { Separator } from 'app/components/ui/separator';
 import { GridTileImage } from 'components/grid/tile';
 import { getCollectionProducts } from 'lib/shopify';
 import type { Product } from 'lib/shopify/types';
@@ -14,14 +15,14 @@ function ThreeItemGridItem({
 }) {
   return (
     <div
-      className={size === 'full' ? 'md:col-span-4 md:row-span-2' : 'md:col-span-2 md:row-span-1'}
+      className={size === 'full' ? 'md:col-span-4 md:row-span-2 col-span-2 row-span-1' : 'md:col-span-2 md:row-span-1'}
     >
       <Link className="relative block aspect-square h-full w-full" href={`/product/${item.handle}`}>
         <GridTileImage
           src={item.featuredImage.url}
           fill
           sizes={
-            size === 'full' ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 100vw'
+            size === 'full' ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 50vw'
           }
           priority={priority}
           alt={item.title}
@@ -48,10 +49,18 @@ export async function ThreeItemGrid() {
   const [firstProduct, secondProduct, thirdProduct] = homepageItems;
 
   return (
-    <section className="mx-auto grid max-w-screen-lg gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
+    <section className='mx-auto max-w-7xl px-4'>
+      <h2 className='pb-4'>
+        <Link href="/collections/best-sellers" className='text-3xl my-4 hover:text-muted-foreground transition-all duration-300'>
+            Best Sellers
+        </Link>
+      </h2>
+      <Separator />
+      <div className="grid gap-4 py-6 md:grid-cols-6 md:grid-rows-2">
       <ThreeItemGridItem size="full" item={firstProduct} priority={true} />
       <ThreeItemGridItem size="half" item={secondProduct} priority={true} />
       <ThreeItemGridItem size="half" item={thirdProduct} />
+      </div>
     </section>
   );
 }

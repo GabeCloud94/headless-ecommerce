@@ -16,9 +16,6 @@ export const metadata = {
 export default async function HomePage() {
   return (
     <>
-      <h1 className="text-center text-5xl my-6">
-        GC Next Test
-      </h1>
       <HeroSlider />
       <Suspense>
         <ThreeItemGrid />
