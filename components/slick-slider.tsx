@@ -31,7 +31,6 @@ export function SlickSlider({homepageItems}: {homepageItems: Product[]}) {
             {product.featuredImage && (
               <Link href={`/product/${product.handle}`} className="relative h-full w-full">
                 <GridTileImage
-                priority
                 alt={product.title}
                 label={{
                   title: product.title,
