@@ -24,7 +24,7 @@ export function SlickSlider({homepageItems}: {homepageItems: Product[]}) {
     <>
       <Slider className="lg:max-w-2xl md:max-w-xl mx-auto lg:mx-0 max-w-screen relative" {...settings}>
         {homepageItems.map((product, i) => (
-          <div key={`${product.handle}${i}`}>
+          <div key={`${product.handle}${i}`} className="h-[650px] w-[635px]">
             {product.featuredImage && (
               <Link href={`/product/${product.handle}`} className="relative h-full w-full">
                 <GridTileImage
