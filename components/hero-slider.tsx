@@ -20,7 +20,7 @@ export async function HeroSlider() {
         <h1 className='text-5xl'>{SITE_NAME}</h1>
         <p className='text-2xl'>Be the First to Check Out Our New Arrivals!</p>
         <Button variant="default" className='text-xl py-6 w-36 mx-auto' asChild>
-          <Link href="/collections/new-arrivals">Shop Now</Link>
+          <Link href="/search/new-arrivals">Shop Now</Link>
         </Button>
       </div>
         <SlickSlider homepageItems={homepageItems} />

@@ -6,7 +6,9 @@ import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import { ProductVariant } from 'lib/shopify/types';
 import { useSearchParams } from 'next/navigation';
+import React, { useState } from 'react'; // Make sure to import React
 import { useFormState, useFormStatus } from 'react-dom';
+import QuantitySelector from './quantity-selector';
 
 function SubmitButton({
   availableForSale,
@@ -79,10 +81,20 @@ export function AddToCart({
     )
   );
   const selectedVariantId = variant?.id || defaultVariantId;
-  const actionWithVariant = formAction.bind(null, selectedVariantId);
+
+  // State to manage the quantity
+  const [quantity, setQuantity] = useState(1);
+
+  // Wrapper function to handle binding additional arguments
+  const actionWithVariantAndQuantity = formAction.bind(null, {selectedVariantId, quantity});
+  
 
   return (
-    <form action={actionWithVariant}>
+    <form action={actionWithVariantAndQuantity}>
+      {/* Add the QuantitySelector component here */}
+      <QuantitySelector onQuantityChange={setQuantity} quantity={quantity} />
+  
+      {/* Original SubmitButton logic remains unchanged */}
       <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
