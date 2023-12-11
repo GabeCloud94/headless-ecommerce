@@ -22,11 +22,11 @@ export function SlickSlider({homepageItems}: {homepageItems: Product[]}) {
 
   return (
     <>
-      <Slider className="lg:max-w-2xl md:max-w-xl mx-auto lg:mx-0 max-w-screen relative" {...settings}>
+      <Slider className="lg:max-w-2xl md:max-w-xl mx-auto lg:mx-0 max-w-screen" {...settings}>
         {homepageItems.map((product, i) => (
-          <div key={`${product.handle}${i}`} className="h-[650px] w-[635px]">
+          <div key={`${product.handle}${i}`} className="h-full w-full">
             {product.featuredImage && (
-              <Link href={`/product/${product.handle}`} className="relative h-full w-full">
+              <Link href={`/product/${product.handle}`} className="relative block aspect-square h-full w-full">
                 <GridTileImage
                   alt={product.title}
                   label={{
@@ -35,8 +35,8 @@ export function SlickSlider({homepageItems}: {homepageItems: Product[]}) {
                     currencyCode: product.priceRange.maxVariantPrice.currencyCode
                   }}
                   src={product.featuredImage?.url}
-                  width={635}
-                  height={650}
+                  fill
+                  sizes='(min-width: 768px) 66vw, 100vw'
                   priority={i === 0 ? true : undefined} // Add priority attribute if it's the first image
                 />
               </Link>

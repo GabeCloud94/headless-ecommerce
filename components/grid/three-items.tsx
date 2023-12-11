@@ -7,11 +7,11 @@ import Link from 'next/link';
 function ThreeItemGridItem({
   item,
   size,
-  priority
+
 }: {
   item: Product;
   size: 'full' | 'half';
-  priority?: boolean;
+
 }) {
   return (
     <div
@@ -24,7 +24,7 @@ function ThreeItemGridItem({
           sizes={
             size === 'full' ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 50vw'
           }
-          priority={priority}
+
           alt={item.title}
           label={{
             position: 'bottom',
@@ -57,8 +57,8 @@ export async function ThreeItemGrid() {
       </h2>
       <Separator />
       <div className="grid gap-4 py-6 md:grid-cols-6 md:grid-rows-2">
-      <ThreeItemGridItem size="full" item={firstProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={secondProduct} priority={true} />
+      <ThreeItemGridItem size="full" item={firstProduct} />
+      <ThreeItemGridItem size="half" item={secondProduct} />
       <ThreeItemGridItem size="half" item={thirdProduct} />
       </div>
     </section>
