@@ -51,7 +51,7 @@ export async function ThreeItemGrid() {
   return (
     <section className='mx-auto max-w-7xl px-4'>
       <h2 className='pb-4'>
-        <Link href="/collections/best-sellers" className='text-3xl my-4 hover:text-muted-foreground transition-all duration-300'>
+        <Link href="/search/best-sellers" className='text-3xl my-4 hover:text-muted-foreground transition-all duration-300'>
             Best Sellers
         </Link>
       </h2>
