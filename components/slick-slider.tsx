@@ -17,7 +17,6 @@ export function SlickSlider({homepageItems}: {homepageItems: Product[]}) {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3500,
-    accessibility: true
   };
 
   return (
