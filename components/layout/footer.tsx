@@ -4,6 +4,8 @@ import FooterMenu from 'components/layout/footer-menu';
 import LogoSquare from 'components/logo-square';
 import { getMenu } from 'lib/shopify';
 import { Suspense } from 'react';
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+
 
 const { COMPANY_NAME, SITE_NAME } = process.env;
 
@@ -40,11 +42,22 @@ export default async function Footer() {
 
       </div>
       <div className="border-t py-6 text-sm">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 px-4 md:flex-row md:gap-0 md:px-4 min-[1320px]:px-0">
+        <div className="mx-auto flex w-full max-w-7xl flex-col justify-between items-center gap-1 px-4 md:flex-row md:gap-0 md:px-4 min-[1320px]:px-0">
           <p>
             &copy; {copyrightDate} {copyrightName}
             {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} All rights reserved.
           </p>
+
+
+
+        <div className="flex space-x-4 text-3xl">
+          <Link href="https://www.linkedin.com/in/gabe-cloud-644066229/" target="_blank" rel="noopener noreferrer" className="text-foreground">
+            <FaLinkedin />
+          </Link>
+          <Link href="https://github.com/GabeCloud94" target="_blank" rel="noopener noreferrer" className="text-foreground">
+            <FaGithub />
+          </Link>
+        </div>
 
         </div>
       </div>
