@@ -15,8 +15,8 @@ export async function HeroSlider() {
   if (!homepageItems?.length) return null;
 
   return (
-    <div className='xl:max-w-7xl md:flex md:flex-row md:justify-center md:items-center gap-4 xl:mx-auto border rounded-lg p-6 mb-6 bg-secondary mx-4'>
-      <div className='flex flex-col gap-4 text-center mb-4 md:mb-0'>
+    <section className='xl:max-w-7xl lg:flex lg:flex-row lg:justify-between lg:items-center xl:mx-auto border rounded-lg py-6 px-12 mb-6 bg-secondary mx-4'>
+      <div className='flex flex-col gap-4 text-center mb-4 lg:mb-0'>
         <h1 className='text-5xl'>{SITE_NAME}</h1>
         <p className='text-2xl'>Be the First to Check Out Our New Arrivals!</p>
         <Button variant="default" className='text-xl py-6 w-36 mx-auto' asChild>
@@ -25,7 +25,7 @@ export async function HeroSlider() {
       </div>
         <SlickSlider homepageItems={homepageItems} />
 
-    </div>
+    </section>
   )
 
 
