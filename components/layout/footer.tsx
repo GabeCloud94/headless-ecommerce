@@ -51,10 +51,10 @@ export default async function Footer() {
 
 
         <div className="flex space-x-4 text-3xl">
-          <Link href="https://www.linkedin.com/in/gabe-cloud-644066229/" target="_blank" rel="noopener noreferrer" className="text-foreground">
+          <Link href="https://www.linkedin.com/in/gabe-cloud-644066229/" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary">
             <FaLinkedin />
           </Link>
-          <Link href="https://github.com/GabeCloud94" target="_blank" rel="noopener noreferrer" className="text-foreground">
+          <Link href="https://github.com/GabeCloud94" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary">
             <FaGithub />
           </Link>
         </div>
