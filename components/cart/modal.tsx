@@ -176,7 +176,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                   </div>
                   <Link
                     href={cart.checkoutUrl}
-                    className="block w-full rounded-full bg-foreground dark:bg-background p-3 text-center text-sm font-medium text-background dark:text-foreground opacity-90 hover:opacity-100"
+                    className="block w-full rounded-full bg-primary p-3 text-center text-sm font-medium text-secondary opacity-90 hover:opacity-100"
                   >
                     Proceed to Checkout
                   </Link>
