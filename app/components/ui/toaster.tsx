@@ -10,13 +10,12 @@ import {
 } from "app/components/ui/toast"
 import { useToast } from "app/components/ui/use-toast"
 
-export default function Toaster() {
+export function Toaster() {
   const { toasts } = useToast()
 
   return (
     <ToastProvider
-      duration={1500}
-    >
+    duration={1500}>
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
           <Toast key={id} {...props}>
