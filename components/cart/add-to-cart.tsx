@@ -1,6 +1,7 @@
 'use client';
 
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { useToast } from 'app/components/ui/use-toast';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
@@ -12,12 +13,12 @@ import QuantitySelector from './quantity-selector';
 
 function SubmitButton({
   availableForSale,
-  selectedVariantId
+  selectedVariantId,
 }: {
   availableForSale: boolean;
-  selectedVariantId: string | undefined;
-}) {
+  selectedVariantId: string | undefined;}) {
   const { pending } = useFormStatus();
+  const { toast } = useToast()
   const buttonClasses =
     'relative flex w-full items-center justify-center rounded-full bg-primary text-primary-foreground p-4 tracking-wide';
   const disabledClasses = 'cursor-not-allowed opacity-60 hover:opacity-60';
@@ -48,7 +49,7 @@ function SubmitButton({
   return (
     <button
       onClick={(e: React.FormEvent<HTMLButtonElement>) => {
-        if (pending) e.preventDefault();
+        pending ? e.preventDefault() : toast({ title: 'Added item(s) to cart successfully!' })
       }}
       aria-label="Add to cart"
       aria-disabled={pending}
@@ -56,7 +57,7 @@ function SubmitButton({
         'hover:opacity-90': true,
         disabledClasses: pending
       })}
-    >
+      >
       <div className="absolute left-0 ml-4">
         {pending ? <LoadingDots className="mb-3 bg-white" /> : <PlusIcon className="h-5" />}
       </div>

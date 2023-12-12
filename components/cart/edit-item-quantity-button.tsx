@@ -1,6 +1,7 @@
 'use client';
 
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { useToast } from 'app/components/ui/use-toast';
 import clsx from 'clsx';
 import { updateItemQuantity } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
@@ -9,12 +10,14 @@ import { useFormState, useFormStatus } from 'react-dom';
 
 function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
   const { pending } = useFormStatus();
+  const { toast } = useToast()
 
   return (
     <button
       type="submit"
       onClick={(e: React.FormEvent<HTMLButtonElement>) => {
         if (pending) e.preventDefault();
+        type === 'plus' ? toast({ title: 'Item quantity increased.' }) : toast({ title: 'Item quantity decreased.' })
       }}
       aria-label={type === 'plus' ? 'Increase item quantity' : 'Reduce item quantity'}
       aria-disabled={pending}

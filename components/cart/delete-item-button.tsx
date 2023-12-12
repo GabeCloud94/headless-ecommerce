@@ -1,6 +1,7 @@
 'use client';
 
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useToast } from 'app/components/ui/use-toast';
 import clsx from 'clsx';
 import { removeItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
@@ -9,12 +10,13 @@ import { useFormState, useFormStatus } from 'react-dom';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
+  const { toast } = useToast()
 
   return (
     <button
       type="submit"
       onClick={(e: React.FormEvent<HTMLButtonElement>) => {
-        if (pending) e.preventDefault();
+        pending ? e.preventDefault() : toast({ title: 'Item(s) removed from cart.' })
       }}
       aria-label="Remove cart item"
       aria-disabled={pending}

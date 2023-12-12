@@ -4,6 +4,7 @@ import { GeistSans } from 'geist/font';
 import { ensureStartsWith } from 'lib/utils';
 import { ReactNode, Suspense } from 'react';
 import { ThemeProvider } from './components/theme-provider';
+import Toaster from "./components/ui/toaster";
 import './globals.css';
 
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
@@ -49,6 +50,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             {children}
           </main>
         </Suspense>
+        <Toaster />
           </ThemeProvider>
           <SpeedInsights />
       </body>
