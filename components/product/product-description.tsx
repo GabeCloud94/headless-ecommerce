@@ -14,7 +14,7 @@ export function ProductDescription({ product }: { product: Product }) {
             amount={product.priceRange.maxVariantPrice.amount}
             currencyCode={product.priceRange.maxVariantPrice.currencyCode}
             currencyCodeClassName="text-2xl"
-            className='text-2xl'
+            className='text-2xl pl-0'
           />
         </div>
       </div>
