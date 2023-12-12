@@ -92,7 +92,12 @@ export function AddToCart({
   return (
     <form action={actionWithVariantAndQuantity}>
       {/* Add the QuantitySelector component here */}
-      <QuantitySelector onQuantityChange={setQuantity} quantity={quantity} />
+      <div className='flex items-center gap-4'>
+
+        <QuantitySelector onQuantityChange={setQuantity} quantity={quantity} />
+        
+        {selectedVariantId && <p>Remaining: Quantity: {variant?.quantityAvailable}</p>}
+      </div>
   
       {/* Original SubmitButton logic remains unchanged */}
       <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
