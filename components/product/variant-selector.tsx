@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { ProductOption, ProductVariant } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 type Combination = {
   id: string;
@@ -21,6 +22,31 @@ export function VariantSelector({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+
+  useEffect(() => {
+    // Check if options and variants are available
+    if (options.length > 0 && variants.length > 0) {
+      // Get the first variant
+      const firstVariant = variants[0];
+  
+      // Create a new URLSearchParams instance
+      const firstVariantSearchParams = new URLSearchParams();
+  
+      // Populate the search params with the first variant's options
+      firstVariant?.selectedOptions.forEach(option => {
+        firstVariantSearchParams.set(option.name.toLowerCase(), option.value);
+      });
+  
+      // Update the URL with the first variant's options
+      const firstVariantUrl = createUrl(pathname, firstVariantSearchParams);
+  
+      // Navigate to the new URL
+      router.replace(firstVariantUrl);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependency array to run only once when the component mounts
+
   const hasNoOptionsOrJustOneOption =
     !options.length || (options.length === 1 && options[0]?.values.length === 1);
 
