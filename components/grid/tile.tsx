@@ -53,7 +53,7 @@ export function GridTileImage({
         />
       ) : null}
       { amount && compareAtAmount ? (
-        <span className='p-4 bg-red-600 text-white absolute top-6 right-6 rounded-lg'>{percentOff}% OFF!</span>
+        <span className='p-4 bg-red-600 text-white absolute top-6 right-6 rounded-lg'>{percentOff?.toFixed(0)}% OFF!</span>
       ) : null
       }
     </div>
