@@ -24,8 +24,6 @@ function ThreeItemGridItem({
           sizes={
             size === 'full' ? '(min-width: 768px) 66vw, 100vw' : '(min-width: 768px) 33vw, 50vw'
           }
-          compareAtAmount={parseFloat(item.compareAtPriceRange.maxVariantPrice.amount) > 0 ? item.compareAtPriceRange.maxVariantPrice.amount : undefined }
-          amount={item.priceRange.maxVariantPrice.amount}
           alt={item.title}
           label={{
             position: 'bottom',
@@ -33,6 +31,8 @@ function ThreeItemGridItem({
             amount: item.priceRange.maxVariantPrice.amount,
             currencyCode: item.priceRange.maxVariantPrice.currencyCode
           }}
+          amount={item.priceRange.maxVariantPrice.amount}
+          compareAtAmount={parseFloat(item.compareAtPriceRange.maxVariantPrice.amount) > 0 ? item.compareAtPriceRange.maxVariantPrice.amount : undefined }
         />
       </Link>
     </div>
