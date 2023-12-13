@@ -13,12 +13,13 @@ export async function Carousel() {
   const carouselProducts = [...products];
 
   return (
-    <div className=" w-full md:max-w-7xl mx-auto overflow-x-auto pb-6 pt-1 scrollbar-thumb-rounded-lg scrollbar-thumb-accent scrollbar-track-transparent scrollbar-thin">
-      <h2 className='pb-4'>
+    <>
+      <h2 className='pb-4 md:max-w-7xl mx-auto'>
           <Link href="/search/related-products" className='text-3xl my-4 hover:text-muted-foreground transition-all duration-300'>
               Related Products
           </Link>
         </h2>
+    <div className=" w-full md:max-w-7xl mx-auto overflow-x-auto pb-6 pt-1 scrollbar-thumb-rounded-lg scrollbar-thumb-accent scrollbar-track-transparent scrollbar-thin">
         <Separator />
         <ul className="flex animate-carousel gap-4 pt-6">
           {carouselProducts.map((product, i) => (
@@ -34,8 +35,6 @@ export async function Carousel() {
                     amount: product.priceRange.maxVariantPrice.amount,
                     currencyCode: product.priceRange.maxVariantPrice.currencyCode
                   }}
-                  amount={product.priceRange.maxVariantPrice.amount}
-                  compareAtAmount={parseFloat(product.compareAtPriceRange.maxVariantPrice.amount) > 0 ? product.compareAtPriceRange.maxVariantPrice.amount : undefined }
                   src={product.featuredImage?.url}
                   fill
                   sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
@@ -45,5 +44,6 @@ export async function Carousel() {
           ))}
         </ul>
     </div>
+    </>
   );
 }
