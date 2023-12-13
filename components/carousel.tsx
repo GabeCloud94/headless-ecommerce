@@ -14,7 +14,7 @@ export async function Carousel() {
 
   return (
     <>
-    <div className='md:max-w-7xl mx-auto'>
+    <div className='md:max-w-7xl mx-auto px-4'>
       <h2 className='pb-4' >
           <Link href="/search/related-products" className='text-3xl my-4 hover:text-muted-foreground transition-all duration-300'>
               Related Products
