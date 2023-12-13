@@ -14,13 +14,16 @@ export async function Carousel() {
 
   return (
     <>
-      <h2 className='pb-4 md:max-w-7xl mx-auto'>
+    <div className='md:max-w-7xl mx-auto'>
+      <h2 className='pb-4' >
           <Link href="/search/related-products" className='text-3xl my-4 hover:text-muted-foreground transition-all duration-300'>
               Related Products
           </Link>
         </h2>
-    <div className=" w-full md:max-w-7xl mx-auto overflow-x-auto pb-6 pt-1 scrollbar-thumb-rounded-lg scrollbar-thumb-accent scrollbar-track-transparent scrollbar-thin">
         <Separator />
+    </div>
+
+    <div className=" w-full md:max-w-7xl mx-auto overflow-x-auto pb-6 pt-1 scrollbar-thumb-rounded-lg scrollbar-thumb-accent scrollbar-track-transparent scrollbar-thin">
         <ul className="flex animate-carousel gap-4 pt-6">
           {carouselProducts.map((product, i) => (
             <li
