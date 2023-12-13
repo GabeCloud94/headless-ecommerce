@@ -95,7 +95,7 @@ export function AddToCart({
       {/* Add the QuantitySelector component here */}
       <div className='flex items-center gap-4'>
 
-        <QuantitySelector onQuantityChange={setQuantity} quantity={quantity} />
+        <QuantitySelector onQuantityChange={setQuantity} quantity={quantity} quantityAvailable={variant?.quantityAvailable} />
         
         {selectedVariantId && <p>Remaining: Quantity: {variant?.quantityAvailable}</p>}
       </div>

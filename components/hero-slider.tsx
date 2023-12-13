@@ -15,7 +15,7 @@ export async function HeroSlider() {
   if (!homepageItems?.length) return null;
 
   return (
-    <section className='xl:max-w-7xl lg:flex lg:flex-row lg:justify-between lg:items-center xl:mx-auto border rounded-lg py-6 px-12 my-6 bg-secondary mx-4'>
+    <section className='xl:max-w-7xl lg:flex lg:flex-row lg:justify-between lg:items-center xl:mx-auto border rounded-lg py-6 px-12 mb-8 bg-secondary mx-4'>
       <div className='flex flex-col gap-4 text-center mb-4 lg:mb-0'>
         <h1 className='text-5xl'>{SITE_NAME}</h1>
         <p className='text-2xl'>Be the First to Check Out Our New Arrivals!</p>

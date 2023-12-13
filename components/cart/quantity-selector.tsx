@@ -3,10 +3,11 @@ import { Button } from "app/components/ui/button";
 
 interface QuantitySelectorProps {
   quantity: number;
+  quantityAvailable: number | undefined;
   onQuantityChange: (newQuantity: number) => void;
 }
 
-const QuantitySelector: React.FC<QuantitySelectorProps> = ({ quantity, onQuantityChange }) => {
+const QuantitySelector: React.FC<QuantitySelectorProps> = ({ quantity, onQuantityChange, quantityAvailable }) => {
   const decreaseQuantity = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (quantity > 1) {
 
@@ -24,8 +25,12 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({ quantity, onQuantit
       <Button className="text-lg" type="button" variant="ghost" onClick={decreaseQuantity} disabled={quantity <= 1}>
         -
       </Button>
-      <span className="mx-4 border px-2 border-muted-foreground rounded">{quantity}</span>
-      <Button className="text-lg" type="button" variant="ghost" onClick={increaseQuantity}>
+      {quantityAvailable ?
+    quantity > quantityAvailable ? <span className="mx-4 border px-2 border-muted-foreground rounded">{quantityAvailable}</span> : <span className="mx-4 border px-2 border-muted-foreground rounded">{quantity}</span> : null  
+    }
+      
+      
+      <Button className="text-lg" type="button" variant="ghost" onClick={increaseQuantity} disabled={quantityAvailable ? quantity >= quantityAvailable : false}>
         +
       </Button>
     </div>

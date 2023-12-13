@@ -8,7 +8,7 @@ import LoadingDots from 'components/loading-dots';
 import type { CartItem } from 'lib/shopify/types';
 import { useFormState, useFormStatus } from 'react-dom';
 
-function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
+function SubmitButton({ type, item, maxQuantity }: { type: 'plus' | 'minus', item: CartItem, maxQuantity: number }) {
   const { pending } = useFormStatus();
   const { toast } = useToast()
 
@@ -17,7 +17,14 @@ function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
       type="submit"
       onClick={(e: React.FormEvent<HTMLButtonElement>) => {
         if (pending) e.preventDefault();
-        type === 'plus' ? toast({ title: 'Item quantity increased.' }) : toast({ title: 'Item quantity decreased.' })
+        
+        if (type === 'plus' && item.quantity >= maxQuantity) {
+          toast({ title: 'Item quantity is at max.' });
+        } else if (type === 'minus' && item.quantity <= 1) {
+          toast({ title: 'Item has been removed.' });
+        } else {
+          type === 'plus' ? toast({ title: 'Item quantity increased.' }) : toast({ title: 'Item quantity decreased.' });
+        }
       }}
       aria-label={type === 'plus' ? 'Increase item quantity' : 'Reduce item quantity'}
       aria-disabled={pending}
@@ -30,17 +37,17 @@ function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
       )}
     >
       {pending ? (
-        <LoadingDots className="bg-black dark:bg-white" />
+        <LoadingDots className="bg-foreground" />
       ) : type === 'plus' ? (
-        <PlusIcon className="h-4 w-4 dark:text-neutral-500" />
+        <PlusIcon className="h-4 w-4 text-muted-foreground" />
       ) : (
-        <MinusIcon className="h-4 w-4 dark:text-neutral-500" />
+        <MinusIcon className="h-4 w-4 text-muted-foreground" />
       )}
     </button>
   );
 }
 
-export function EditItemQuantityButton({ item, type }: { item: CartItem; type: 'plus' | 'minus' }) {
+export function EditItemQuantityButton({ item, type, maxQuantity }: { item: CartItem; type: 'plus' | 'minus', maxQuantity: number }) {
   const [message, formAction] = useFormState(updateItemQuantity, null);
   const payload = {
     lineId: item.id,
@@ -51,7 +58,7 @@ export function EditItemQuantityButton({ item, type }: { item: CartItem; type: '
 
   return (
     <form action={actionWithVariant}>
-      <SubmitButton type={type} />
+      <SubmitButton type={type} item={item} maxQuantity={maxQuantity} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>

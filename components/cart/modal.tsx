@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
-import type { Cart } from 'lib/shopify/types';
+import type { Cart, ProductVariant } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -94,6 +94,13 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                         `/product/${item.merchandise.product.handle}`,
                         new URLSearchParams(merchandiseSearchParams)
                       );
+                      const variant = Array.isArray(item.merchandise.product.variants)
+                        ? item.merchandise.product.variants.find((variant: ProductVariant) =>
+                            variant.selectedOptions.every(
+                              (option) => option.value === item.merchandise.product.handle
+                            )
+                          )
+                        : null;
 
                       return (
                         <li
@@ -140,11 +147,11 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                 currencyCode={item.cost.totalAmount.currencyCode}
                               />
                               <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-border">
-                                <EditItemQuantityButton item={item} type="minus" />
+                                <EditItemQuantityButton item={item} type="minus" maxQuantity={variant?.quantityAvailable || 0} />
                                 <p className="w-6 text-center">
                                   <span className="w-full text-sm">{item.quantity}</span>
                                 </p>
-                                <EditItemQuantityButton item={item} type="plus" />
+                                <EditItemQuantityButton item={item} type="plus" maxQuantity={variant?.quantityAvailable || 0} />
                               </div>
                             </div>
                           </div>
