@@ -15,11 +15,11 @@ const Label = ({
 }) => {
   return (
     <div
-      className={clsx('absolute bottom-0 left-0 flex flex-col md:flex-row w-full px-1 pb-4 @container/label', {
+      className={clsx('absolute bottom-0 left-0 flex flex-col md:flex-row w-full max-w-[full] px-1 pb-4 @container/label', {
         'lg:px-20 lg:pb-[35%]': position === 'center'
       })}
     >
-      <div className="flex items-center rounded-full border border-border bg-foreground/70 p-1 text-xs font-semibold text-background backdrop-blur-lg">
+      <div className="flex items-center rounded-full border border-border bg-foreground/70 p-1 text-base font-semibold text-background backdrop-blur-lg max-w-full">
         <h3 className="mr-1 md:mr-4 line-clamp-1 flex-grow pl-2 text-sm md:text-base">{title}</h3>
         <Button variant="secondary" size="sm" className='rounded-lg' asChild>
           <Price
