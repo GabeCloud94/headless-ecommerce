@@ -6,6 +6,8 @@ export function GridTileImage({
   isInteractive = true,
   active,
   label,
+  compareAtAmount,
+  amount,
   ...props
 }: {
   isInteractive?: boolean;
@@ -16,11 +18,16 @@ export function GridTileImage({
     currencyCode: string;
     position?: 'bottom' | 'center';
   };
+  compareAtAmount?: string;
+  amount?: string;
 } & React.ComponentProps<typeof Image>) {
+
+  const percentOff = compareAtAmount && amount ? ((parseFloat(amount) / parseFloat(compareAtAmount)) * 100) : null;
+
   return (
     <div
       className={clsx(
-        'group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-background hover:border-primary transition-all duration-500 ease-in-out',
+        'group relative flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-background hover:border-primary transition-all duration-500 ease-in-out',
         {
           relative: label,
           'border-2 border-primary': active,
@@ -45,6 +52,10 @@ export function GridTileImage({
           position={label.position}
         />
       ) : null}
+      { amount && compareAtAmount ? (
+        <span className='p-4 bg-red-600 text-white absolute top-6 right-6 rounded-lg'>{percentOff}% OFF!</span>
+      ) : null
+      }
     </div>
   );
 }

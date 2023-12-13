@@ -1,3 +1,4 @@
+import { Button } from 'app/components/ui/button';
 import clsx from 'clsx';
 import Price from './price';
 
@@ -20,12 +21,14 @@ const Label = ({
     >
       <div className="flex items-center rounded-full border border-border bg-foreground/70 p-1 text-xs font-semibold text-background backdrop-blur-lg">
         <h3 className="mr-1 md:mr-4 line-clamp-1 flex-grow pl-2 text-sm md:text-base">{title}</h3>
-        <Price
-          className="flex-none rounded-full p-2 text-foreground"
-          amount={amount}
-          currencyCode={currencyCode}
-          currencyCodeClassName="hidden @[275px]/label:inline"
-        />
+        <Button variant="secondary" size="sm" className='rounded-lg' asChild>
+          <Price
+            className="flex-none rounded-full p-2 text-foreground"
+            amount={amount}
+            currencyCode={currencyCode}
+            currencyCodeClassName="hidden @[275px]/label:inline"
+          />
+        </Button>
       </div>
     </div>
   );
