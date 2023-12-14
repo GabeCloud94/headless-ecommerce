@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 export const runtime = 'edge';
 
 export const metadata = {
-  description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
+  description: 'GC-Next-Test, the next big thing in E-Commerce',
   openGraph: {
     type: 'website'
   }
