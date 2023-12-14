@@ -76,7 +76,7 @@ export default async function ProductPage({ params }: { params: { handle: string
   };
   const amount = product.priceRange.maxVariantPrice.amount;
   const compareAtAmount = parseFloat(product.compareAtPriceRange.maxVariantPrice.amount) > 0 ? product.compareAtPriceRange.maxVariantPrice.amount : null;
-  const percentOff = compareAtAmount && amount ? ((parseFloat(amount) / parseFloat(compareAtAmount)) * 100) : null;
+  const percentOff = compareAtAmount && amount ? ((parseFloat(amount) / parseFloat(compareAtAmount)) * 100) : 0;
 
   return (
     <>
@@ -88,17 +88,15 @@ export default async function ProductPage({ params }: { params: { handle: string
       />
       <div className="mx-auto max-w-screen-2xl px-4">
         <div className="flex flex-col rounded-lg border bg-secondary p-8 md:p-12 lg:flex-row lg:gap-8">
-          <div className="h-full w-full basis-full lg:basis-4/6 relative">
+          <div className="h-full w-full basis-full lg:basis-4/6">
             <Gallery
               images={product.images.map((image: Image) => ({
                 src: image.url,
-                altText: image.altText
+                altText: image.altText,
               }))}
+              percentOff={percentOff}
               />
-              { percentOff && (
-                <span className='p-4 bg-red-600 text-white font-bold absolute top-2 right-6 rounded-lg'>{percentOff?.toFixed(0)}% OFF!</span>
-              )
-              }
+
           </div>
 
           <div className="basis-full lg:basis-2/6">

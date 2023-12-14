@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-export function Gallery({ images }: { images: { src: string; altText: string }[] }) {
+export function Gallery({ images, percentOff }: { images: { src: string; altText: string }[]; percentOff: number }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const imageSearchParam = searchParams.get('image');
@@ -22,6 +22,8 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
   const previousImageIndex = imageIndex === 0 ? images.length - 1 : imageIndex - 1;
   previousSearchParams.set('image', previousImageIndex.toString());
   const previousUrl = createUrl(pathname, previousSearchParams);
+
+  
 
   const buttonClassName =
     'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center';
@@ -39,6 +41,11 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
             priority={true}
           />
         )}
+{ percentOff > 0 && (
+                <span className='p-4 bg-red-600 text-white font-bold absolute md:top-2 2xl:right-[18%] xl:right-[15%] lg:right-12 md:right-[12%] sm:right-4 sm:top-10 right-2 top-8 rounded-lg'>{percentOff?.toFixed(0)}% OFF!</span>
+              )
+              }
+
 
         {images.length > 1 ? (
           <div className="absolute bottom-2 flex w-full justify-center">
