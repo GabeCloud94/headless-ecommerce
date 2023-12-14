@@ -14,15 +14,14 @@ export const revalidate = 43200; // 12 hours in seconds
 
 export default async function Blog() {
   const blog = await getBlog('news');
-  console.log(blog)
   if (!blog) return notFound();
 
   return (
     <div className='flex justify-center flex-col xl:max-w-7xl xl:items-start items-center mx-auto px-4 mb-6'>
       <h1 className="mb-8 text-5xl font-bold">{blog.title}</h1>
       {blog.articles.edges.reverse().map(({ node: article }) => (
-        <div key={article.id} className="border p-4 mb-8 w-full flex gap-2 items-center rounded-lg bg-secondary">
-          <div className='flex flex-col w-1/4 text-center justify-center'>
+        <div key={article.id} className="border py-8 px-12 mb-8 w-full flex md:flex-row flex-col gap-4 items-center rounded-lg bg-secondary">
+          <div className='flex flex-col w-full md:w-1/4 text-center justify-center'>
             <h2 className="text-3xl font-bold mb-2">{article.title}</h2>
             <p className="text-sm italic mb-2">
               {`Published on ${new Intl.DateTimeFormat(undefined, {
@@ -31,17 +30,18 @@ export default async function Blog() {
                 day: 'numeric'
               }).format(new Date(article.publishedAt))}.`}
             </p>
+          <p className=' truncate max-w-[95%] mx-auto text-center'>{article.content}</p>
+          </div>
+          <div className='md:w-2/4 flex justify-center items-center'>
             {article.image && (
-              <Image width={350} height={350} src={article.image.url} alt={article.title} className="mb-2" />
+              <Image width={420} height={400} src={article.image.url} alt={article.title} className="mb-2" />
             )}
           </div>
-          <p className=' truncate max-w-md mx-auto text-center w-1/2'>{article.content}</p>
-          <div className='w-1/4 flex justify-center'>
+          <div className='md:w-1/4 flex justify-center'>
             <Button className='text-lg' variant="default" asChild>
               <Link  href={`/blogs/news/${article.handle}`}>View Blog</Link>
             </Button>
           </div>
-
         </div>
       ))}
     </div>
