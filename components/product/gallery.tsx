@@ -26,7 +26,7 @@ export function Gallery({ images, percentOff }: { images: { src: string; altText
   
 
   const buttonClassName =
-    'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center';
+    'h-full px-6 transition-all ease-in-out hover:scale-110 flex items-center justify-center';
 
   return (
     <>
@@ -47,33 +47,11 @@ export function Gallery({ images, percentOff }: { images: { src: string; altText
               }
 
 
-        {images.length > 1 ? (
-          <div className="absolute bottom-2 flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-background bg-secondary text-foreground backdrop-blur">
-              <Link
-                aria-label="Previous product image"
-                href={previousUrl}
-                className={buttonClassName}
-                scroll={false}
-              >
-                <ArrowLeftIcon className="h-5" />
-              </Link>
-              <div className="mx-1 h-6 w-px bg-background"></div>
-              <Link
-                aria-label="Next product image"
-                href={nextUrl}
-                className={buttonClassName}
-                scroll={false}
-              >
-                <ArrowRightIcon className="h-5" />
-              </Link>
-            </div>
-          </div>
-        ) : null}
+
       </div>
 
       {images.length > 1 ? (
-        <ul className="my-6 flex items-center justify-center gap-2 overflow-auto py-1 lg:mb-0">
+        <ul className="md:my-4 flex items-center justify-center gap-2 overflow-auto mb-2">
           {images.map((image, index) => {
             const isActive = index === imageIndex;
             const imageSearchParams = new URLSearchParams(searchParams.toString());
@@ -101,6 +79,30 @@ export function Gallery({ images, percentOff }: { images: { src: string; altText
           })}
         </ul>
       ) : null}
+
+{images.length > 1 ? (
+          <div className="w-full justify-center mt-2 hidden lg:flex">
+            <div className="mx-auto flex h-11 items-center rounded-full border backdrop-blur">
+              <Link
+                aria-label="Previous product image"
+                href={previousUrl}
+                className={buttonClassName}
+                scroll={false}
+              >
+                <ArrowLeftIcon className="h-5" />
+              </Link>
+              <div className="mx-1 h-6 w-px bg-foreground"></div>
+              <Link
+                aria-label="Next product image"
+                href={nextUrl}
+                className={buttonClassName}
+                scroll={false}
+              >
+                <ArrowRightIcon className="h-5" />
+              </Link>
+            </div>
+          </div>
+        ) : null}
     </>
   );
 }
