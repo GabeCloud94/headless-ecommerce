@@ -20,7 +20,7 @@ const Label = ({
       })}
     >
       <div className="flex items-center rounded-full border border-border bg-foreground/70 p-1 text-base font-semibold text-background backdrop-blur-lg max-w-full">
-        <h3 className="mr-1 md:mr-4 line-clamp-1 flex-grow pl-2 text-sm md:text-base">{title}</h3>
+        <span className="mr-1 md:mr-4 line-clamp-1 flex-grow pl-2 text-sm md:text-base">{title}</span>
         <Button variant="secondary" size="sm" className='rounded-lg' asChild>
           <Price
             className="flex-none rounded-full p-2 text-foreground"

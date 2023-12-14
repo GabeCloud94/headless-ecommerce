@@ -21,7 +21,7 @@ export function SlickSlider({homepageItems}: {homepageItems: Product[]}) {
 
   return (
     <>
-      <Slider className="lg:max-w-2xl md:max-w-xl mx-auto lg:mx-0 max-w-screen" {...settings}>
+      <Slider className="lg:max-w-2xl md:max-w-xl mx-auto lg:mx-0 max-w-screen w-full md:w-1/2" {...settings}>
         {homepageItems.map((product, i) => (
           <div key={`${product.handle}${i}`} className="h-full w-full">
             {product.featuredImage && (
