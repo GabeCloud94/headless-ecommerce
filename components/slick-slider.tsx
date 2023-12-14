@@ -38,7 +38,7 @@ export function SlickSlider({homepageItems}: {homepageItems: Product[]}) {
                   src={product.featuredImage?.url}
                   fill
                   sizes='(min-width: 768px) 66vw, 100vw'
-                  priority={i === 0 ? true : undefined} // Add priority attribute if it's the first image
+                  priority={true} // Add priority attribute if it's the first image
                 />
               </Link>
             )}
