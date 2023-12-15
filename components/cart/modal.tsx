@@ -2,6 +2,7 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { Button } from 'app/components/ui/button';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart, ProductVariant } from 'lib/shopify/types';
@@ -39,9 +40,9 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
 
   return (
     <>
-      <button aria-label="Open cart" onClick={openCart}>
+      <Button variant="outline" size="icon" aria-label="Open cart" onClick={openCart}>
         <OpenCart quantity={cart?.totalQuantity} />
-      </button>
+      </Button>
       <Transition show={isOpen}>
         <Dialog onClose={closeCart} className="relative z-50">
           <Transition.Child

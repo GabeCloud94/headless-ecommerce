@@ -18,6 +18,11 @@ import {
   getCollectionQuery,
   getCollectionsQuery
 } from './queries/collection';
+import {
+  ACTIVATE_CUSTOMER_BY_URL_MUTATION,
+  CREATE_CUSTOMER_MUTATION,
+  getCustomerQuery
+} from './queries/customer';
 import { getMenuQuery } from './queries/menu';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
@@ -30,6 +35,8 @@ import {
   Cart,
   Collection,
   Connection,
+  Customer,
+  CustomerAccessToken,
   Image,
   Menu,
   Page,
@@ -44,6 +51,10 @@ import {
   ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
+  ShopifyCreateCustomerOperation,
+  ShopifyCustomerOperation,
+  ShopifyLoginCustomerByUrlOperation,
+  ShopifyLoginCustomerOperation,
   ShopifyMenuOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -52,7 +63,7 @@ import {
   ShopifyProductRecommendationsOperation,
   ShopifyProductsOperation,
   ShopifyRemoveFromCartOperation,
-  ShopifyUpdateCartOperation
+  ShopifyUpdateCartOperation,
 } from './types';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -286,6 +297,82 @@ export async function getCollection(handle: string): Promise<Collection | undefi
 
   return reshapeCollection(res.body.data.collection);
 }
+
+export async function getCustomer(customerAccessToken: { accessToken: string; expiresAt: string; }): Promise<any> {
+  const res = await shopifyFetch<ShopifyCustomerOperation>({
+    query: getCustomerQuery,
+    variables: { customerAccessToken },
+    tags: [TAGS.customer],
+    cache: 'no-store'
+  });
+
+  return res.body.data.customer;
+}
+
+export async function loginCustomer({
+  email,
+  password
+}: {
+  email: string;
+  password: string;
+}): Promise<CustomerAccessToken> {
+  const res = await shopifyFetch<ShopifyLoginCustomerOperation>({
+    query: getCustomerQuery,
+    variables: { input: {email, password} },
+    tags: [TAGS.customer],
+    cache: 'no-store'
+  });
+
+  return res.body.data.customerAccessTokenCreate.customerAccessToken;
+}
+
+export async function customerActivateByUrl({
+  activationUrl,
+  password
+}:
+{
+  activationUrl: string;
+  password: string;
+}): Promise<CustomerAccessToken>
+ {
+  const res = await shopifyFetch<ShopifyLoginCustomerByUrlOperation>({
+    query: ACTIVATE_CUSTOMER_BY_URL_MUTATION,
+    variables: { input: {activationUrl, password} },
+    tags: [TAGS.customer],
+    cache: 'no-store'
+  });
+
+  return res.body.data.customerAccessTokenCreate.customerAccessToken;
+}
+
+
+export async function createCustomer({
+  email,
+  password
+}: {
+  email: string;
+  password: string;
+}): Promise<Customer> {
+
+
+  const res = await shopifyFetch<ShopifyCreateCustomerOperation>({
+    query: CREATE_CUSTOMER_MUTATION,
+    variables: {
+      input: {
+        email,
+        password,
+        firstName: '',
+        lastName: ''
+      }
+    },
+    tags: [TAGS.customer],
+    cache: 'no-store'
+  });
+
+
+  return res.body.data.customerCreate.customer;
+}
+
 
 export async function getCollectionProducts({
   collection,

@@ -33,6 +33,43 @@ export type Collection = ShopifyCollection & {
   path: string;
 };
 
+export type Address = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  company: string;
+  address1: string;
+  address2: string;
+  city: string;
+  province: string;
+  zip: string;
+  country: string;
+  phone: string;
+}
+
+export type Order = {
+  id: string;
+  name: string;
+  createdAt: string;
+  totalPrice: Money;
+  totalTax: Money;
+  statusUrl: string;
+  shippingAddress: Address;
+  lineItems: Connection<CartItem>;
+}
+
+export type Customer = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  defaultAddress: Address;
+  addresses: Connection<Address>;
+  customerAccessToken: CustomerAccessToken;
+  orders: Connection<Order>;
+}
+
 export type Image = {
   url: string;
   altText: string;
@@ -165,6 +202,80 @@ export type ShopifyProduct = {
   seo: SEO;
   tags: string[];
   updatedAt: string;
+};
+
+export type CustomerAccessToken = {
+  accessToken: string;
+  expiresAt: string;
+};
+
+export  type ShopifyCustomerOperation = {
+  data: {
+    customer: Customer;
+  };
+  variables: {
+    customerAccessToken: CustomerAccessToken;
+  };
+};
+
+export type ShopifyLoginCustomerOperation = {
+  data: {
+    customerAccessTokenCreate: {
+      customerAccessToken: CustomerAccessToken;
+      customerUserErrors: {
+        code: string;
+        field: string;
+        message: string;
+      }[];
+    };
+  };
+  variables: {
+    input: {
+      email: string;
+      password: string;
+    };
+  };
+};
+
+export type ShopifyLoginCustomerByUrlOperation = {
+  data: {
+    customer: Customer;
+    customerAccessTokenCreate: {
+      customerAccessToken: CustomerAccessToken;
+      customerUserErrors: {
+        code: string;
+        field: string;
+        message: string;
+      }[];
+    };
+  };
+  variables: {
+    input: {
+      activationUrl: string;
+      password: string;
+    };
+  };
+};
+
+export type ShopifyCreateCustomerOperation = {
+  data: {
+    customerCreate: {
+      customer: Customer;
+      customerUserErrors: {
+        code: string;
+        field: string;
+        message: string;
+      }[];
+    };
+  };
+  variables: {
+    input: {
+      email: string;
+      password: string;
+      firstName: string;
+      lastName: string;
+    };
+  };
 };
 
 export type ShopifyCartOperation = {
