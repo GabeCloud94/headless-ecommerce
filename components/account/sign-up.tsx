@@ -7,6 +7,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from 'app/components/ui/input';
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import OnSubmitCreate from "./on-submit-create";
 
 
 const formSchema = z.object({
@@ -15,7 +16,7 @@ const formSchema = z.object({
   lastName: z.string().min(2, { message: "Last name must be at least 2 characters" }).max(30, { message: "Last name must be less than 30 characters" }),
   password: z.string().min(8, { message: "Password must be at least 8 characters" }).max(30, { message: "Password must be less than 30 characters" }).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, { message: "Password must contain at least one uppercase letter, one lowercase letter, and one number" }),
   phoneNumber: z?.string(),
-  acceptsMarketing: z.boolean()
+  acceptsMarketing: z.boolean().default(false)
 })
 
 export default function SignUp() {
@@ -34,16 +35,10 @@ export default function SignUp() {
       },
     })
    
-    // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
-      console.log(values)
-    }
 return (
 
 <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form onSubmit={form.handleSubmit(OnSubmitCreate)}>
               <FormField
                 control={form.control}
                 name="email"
@@ -107,7 +102,7 @@ return (
                   <FormItem className="flex items-center gap-2">
                     <FormLabel className="mt-2">Accept Marketing:</FormLabel>
                     <FormControl>
-                      <Checkbox {...field} />
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
