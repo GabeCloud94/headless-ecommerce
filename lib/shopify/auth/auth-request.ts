@@ -15,7 +15,7 @@ export async function Auth() {
   );
   authorizationRequestUrl.searchParams.append(
     'client_id',
-    clientId ?? ''
+    `${clientId}`
   );
   authorizationRequestUrl.searchParams.append(
     'response_type',
