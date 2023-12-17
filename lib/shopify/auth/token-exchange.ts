@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import credentials from './auth-header';
 
 export default async function TokenExchange() {
   const cookieStore = cookies()
@@ -21,13 +22,17 @@ export default async function TokenExchange() {
   const headers = {
     'content-type': 'application/x-www-form-urlencoded',
     // Confidential Client
-    'Authorization': 'Basic `<credentials>`'
+    'Authorization': `Basic ${credentials}`
   }
   const response = await fetch(`https://shopify.com/85110685995/auth/oauth/token`, {
     method: 'POST',
     headers: headers,
     body,
   });
+
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
 
   const {access_token} = await response.json();
 

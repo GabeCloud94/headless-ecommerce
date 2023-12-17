@@ -17,6 +17,10 @@ export default async function RefreshToken(refreshToken: string) {
     body
   });
 
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+
   const {access_token, expires_in, id_token, refresh_token} = await response.json();
 
   return {access_token, expires_in, id_token, refresh_token};
