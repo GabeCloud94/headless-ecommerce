@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router';
+
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 interface CustomerProfile {
@@ -12,13 +13,12 @@ interface AccountPageProps {
 }
 
 const AccountPage: React.FC<AccountPageProps> = ({ customer }) => {
-  const router = useRouter();
+  
 
   // Check if customer is signed in
   if (!customer) {
     // Redirect to homepage if not signed in
-    router.push('/');
-    return null;
+    redirect("/");
   }
 
   return (
