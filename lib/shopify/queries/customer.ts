@@ -44,9 +44,15 @@ export const CREATE_CUSTOMER_MUTATION = /* GraphQL */`
   mutation customerCreate($input: CustomerCreateInput!) {
     customerCreate(input: $input) {
       customer {
-        id
+        acceptsMarketing
         email
+        firstName
+        lastName
+        password
+        phone
+        orders
         displayName
+        createdAt
       }
       customerUserErrors {
         code
@@ -76,13 +82,17 @@ export const ACTIVATE_CUSTOMER_BY_URL_MUTATION = /* GraphQL */ `
 mutation customerActivateByUrl($activationUrl: URL!, $password: String!) {
   customerActivateByUrl(activationUrl: $activationUrl, password: $password) {
     customer {
-      # Customer fields
+      activationUrl
+      password
     }
     customerAccessToken {
-      # CustomerAccessToken fields
+      accessToken
+      expiresAt
     }
     customerUserErrors {
-      # CustomerUserError fields
+      code
+      field
+      message
     }
   }
 }

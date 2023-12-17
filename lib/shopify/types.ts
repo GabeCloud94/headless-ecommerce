@@ -68,6 +68,9 @@ export type Customer = {
   addresses: Connection<Address>;
   customerAccessToken: CustomerAccessToken;
   orders: Connection<Order>;
+  acceptsMarketing: boolean;
+  createdAt: string;
+  displayName: string;
 }
 
 export type Image = {
@@ -209,74 +212,8 @@ export type CustomerAccessToken = {
   expiresAt: string;
 };
 
-export  type ShopifyCustomerOperation = {
-  data: {
-    customer: Customer;
-  };
-  variables: {
-    customerAccessToken: CustomerAccessToken;
-  };
-};
 
-export type ShopifyLoginCustomerOperation = {
-  data: {
-    customerAccessTokenCreate: {
-      customerAccessToken: CustomerAccessToken;
-      customerUserErrors: {
-        code: string;
-        field: string;
-        message: string;
-      }[];
-    };
-  };
-  variables: {
-    input: {
-      email: string;
-      password: string;
-    };
-  };
-};
 
-export type ShopifyLoginCustomerByUrlOperation = {
-  data: {
-    customer: Customer;
-    customerAccessTokenCreate: {
-      customerAccessToken: CustomerAccessToken;
-      customerUserErrors: {
-        code: string;
-        field: string;
-        message: string;
-      }[];
-    };
-  };
-  variables: {
-    input: {
-      activationUrl: string;
-      password: string;
-    };
-  };
-};
-
-export type ShopifyCreateCustomerOperation = {
-  data: {
-    customerCreate: {
-      customer: Customer;
-      customerUserErrors: {
-        code: string;
-        field: string;
-        message: string;
-      }[];
-    };
-  };
-  variables: {
-    input: {
-      email: string;
-      password: string;
-      firstName: string;
-      lastName: string;
-    };
-  };
-};
 
 export type ShopifyCartOperation = {
   data: {

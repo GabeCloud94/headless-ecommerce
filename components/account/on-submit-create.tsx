@@ -1,25 +1,65 @@
 'use server'
 
-import { createCustomer } from "lib/shopify"
-import { revalidateTag } from "next/cache"
-import { redirect } from "next/navigation"
-import { z } from "zod"
+// on-submit-create.tsx
 
-const formSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  firstName: z.string().min(2, { message: "First name must be at least 2 characters" }).max(30, { message: "First name must be less than 30 characters" }),
-  lastName: z.string().min(2, { message: "Last name must be at least 2 characters" }).max(30, { message: "Last name must be less than 30 characters" }),
-  password: z.string().min(8, { message: "Password must be at least 8 characters" }).max(30, { message: "Password must be less than 30 characters" }).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, { message: "Password must contain at least one uppercase letter, one lowercase letter, and one number" }),
-  phoneNumber: z?.string(),
-  acceptsMarketing: z.boolean().default(false)
-})
+import { redirect } from "next/navigation";
 
 
 
-export default async function OnSubmitCreate(values: z.infer<typeof formSchema>) {
+export default async function OnSubmitCreate(data: { email: string; firstName: string; lastName: string; password: string; phone: string; acceptsMarketing: boolean; }) {
+  
+  const plainFormData = {
+    email: data.email,
+    firstName: data.firstName,
+    lastName: data.lastName,
+    password: data.password,
+    phone: data.phone,
+    acceptsMarketing: data.acceptsMarketing
+  }
+  console.log(plainFormData)
+  
 
-  createCustomer(values)
-  console.log(values)
-  revalidateTag("customer")
-  redirect("/account")
+  const response = await fetch("https://shopify.com/85110685995/account/customer/unstable/graphql",
+  {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `${process.env.SHOPIFY_CUSTOMER_CLIENT_ID}`,
+    },
+    body: JSON.stringify({
+      query: `
+        mutation customerCreate($input: CustomerCreateInput!) {
+          customerCreate(input: $input) {
+            customer {
+              id
+            }
+            userErrors {
+              field
+              message
+            }
+          }
+        }
+      `,
+      variables: {
+        input: plainFormData
+      }
+    })
+  })
+
+    // Parse the JSON response
+    const promise = await response.json();
+
+    // Check for errors
+    if (promise.errors) {
+      console.error(promise.errors);
+      throw new Error('Error creating customer');
+    }
+  
+    // Handle the data
+    const customer = promise.data.customerCreate.customer;
+    console.log('Created customer:', customer);
+  
+    // If you need to redirect or perform some other action, do it here
+    // For example, you might redirect to the new customer's profile page
+    redirect(`/account/${customer.id}`);
 }
