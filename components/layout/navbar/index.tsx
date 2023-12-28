@@ -1,5 +1,4 @@
 import { ModeToggle } from 'app/components/ui/mode-toggle';
-import Account from 'components/account/account';
 import Cart from 'components/cart';
 import OpenCart from 'components/cart/open-cart';
 import LogoSquare from 'components/logo-square';
@@ -39,7 +38,7 @@ export default async function Navbar() {
         </div>
         <div className="flex justify-end 2xl:w-1/3 lg:w-1/4 gap-4 items-center">
           <ModeToggle />
-          <Account />
+
           <Suspense fallback={<OpenCart />}>
             <Cart />
           </Suspense>
